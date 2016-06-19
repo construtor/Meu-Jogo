@@ -15,16 +15,19 @@ import com.meujogo.sprite.SpriteSheet;
 
 public class Game extends Canvas implements Runnable {
 
+	public final static String TITLE = "GAME";
 	private boolean running=false;
 	private ExecutorService executor;
-	private  int width;
-	private  int height;
+	public static int width;
+	public static int height;
 	private SpriteSheet sheet;
 	private Sprite sprite;
 	private Back back;
 	private int sX=200,sY=200;
+	private Menu menu;
 	
 	public Game(int w, int h){
+		menu = new Menu();
 		executor = Executors.newFixedThreadPool(1);
 		width = w;
 		height = h;
@@ -108,8 +111,9 @@ public class Game extends Canvas implements Runnable {
 		Graphics g = bs.getDrawGraphics();
 		
 		/////////////////////////////////
-		back.render(g, 0, 0);
-		sprite.render(g, sX, sY);
+		//back.render(g, 0, 0);
+		//sprite.render(g, sX, sY);
+		menu.render(g);
 		////////////////////////////////
 		
 		g.dispose();
