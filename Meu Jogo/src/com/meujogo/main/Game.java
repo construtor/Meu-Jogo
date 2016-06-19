@@ -27,7 +27,7 @@ public class Game extends Canvas implements Runnable {
 	private Menu menu;
 	
 	public Game(int w, int h){
-		menu = new Menu();
+		
 		executor = Executors.newFixedThreadPool(1);
 		width = w;
 		height = h;
@@ -38,6 +38,7 @@ public class Game extends Canvas implements Runnable {
 		MouseInput mi = new MouseInput();
 		addMouseListener(mi);
 		addMouseMotionListener(mi);
+		menu = new Menu();
 	}
 	
 	@Override
@@ -153,9 +154,16 @@ public class Game extends Canvas implements Runnable {
 		}
 		
 		KeyInput.update();
-		///////////////////////////////////////////////////
+		/////////////////////////////////////////////////
 		////sprite
-		//////////////////////////////////////////////////
 		sprite.update();
+		/////////////////////////////////////////////////
+		//Menu
+		menu.tick();
+		/////////////////////////////////////////////////
+		//MouseInput		
+		MouseInput.update();
+		
+		
 	}
 }

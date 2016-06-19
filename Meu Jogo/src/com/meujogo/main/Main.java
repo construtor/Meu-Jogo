@@ -7,10 +7,12 @@ import javax.swing.JFrame;
 public class Main extends JFrame{
 	
 	Game game;
-	private static int WIDTH = 480;
-	private static int HEIGHT = 320;
+	private static int WIDTH = 800;
+	private static int HEIGHT = 600;
+	public static Main INSTANCE;
 	
 	public Main(){
+		INSTANCE = this;
 		setSize(WIDTH,HEIGHT);
 		setResizable(false);
 		setLocation(600,400);
