@@ -9,6 +9,8 @@ import java.util.concurrent.Executors;
 
 import com.meujogo.main.input.KeyInput;
 import com.meujogo.main.input.MouseInput;
+import com.meujogo.main.state.ManagerState;
+import com.meujogo.main.state.MenuState;
 import com.meujogo.sprite.Back;
 import com.meujogo.sprite.Sprite;
 import com.meujogo.sprite.SpriteSheet;
@@ -24,7 +26,7 @@ public class Game extends Canvas implements Runnable {
 	private Sprite sprite;
 	private Back back;
 	private int sX=200,sY=200;
-	private Menu menu;
+	private ManagerState sm;
 	
 	public Game(int w, int h){
 		
@@ -38,7 +40,8 @@ public class Game extends Canvas implements Runnable {
 		MouseInput mi = new MouseInput();
 		addMouseListener(mi);
 		addMouseMotionListener(mi);
-		menu = new Menu();
+		sm = new ManagerState();
+		sm.addState(new MenuState());
 	}
 	
 	@Override
@@ -114,7 +117,7 @@ public class Game extends Canvas implements Runnable {
 		/////////////////////////////////
 		//back.render(g, 0, 0);
 		//sprite.render(g, sX, sY);
-		menu.render(g);
+		sm.render(g);
 		////////////////////////////////
 		
 		g.dispose();
@@ -159,7 +162,7 @@ public class Game extends Canvas implements Runnable {
 		sprite.update();
 		/////////////////////////////////////////////////
 		//Menu
-		menu.tick();
+		sm.tick();
 		/////////////////////////////////////////////////
 		//MouseInput		
 		MouseInput.update();

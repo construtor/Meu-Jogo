@@ -29,7 +29,7 @@ public class Main extends JFrame{
 		setAutoRequestFocus(true);
 	}
 	
-	protected void gameStop() {
+	public void gameStop() {
 		System.out.println("/////////////////\ngameStop acionado!\n/////////////////");
 		game.encerra();
 		System.exit(1);

@@ -1,4 +1,4 @@
-package com.meujogo.main;
+package com.meujogo.main.state;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -6,26 +6,17 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
 
+import com.meujogo.main.Game;
+import com.meujogo.main.Main;
 import com.meujogo.main.input.MouseInput;
 import com.meujogo.main.ui.Button;
 import com.meujogo.main.utils.Fontes;
 
-public class Menu {
+public class MenuState implements State{
 	private int currentSelection;
-	private final Button[] options;
+	private Button[] options;
 	
-	public Menu(){
-		options = new Button[3];
-		options[0] = new Button("Play",	200+0*80,
-				new Font("Arial",Font.PLAIN,32),new Font("Arial",Font.BOLD,48),
-				Color.WHITE,Color.YELLOW);
-		options[1] = new Button("Options",200+1*80,
-				new Font("Arial",Font.PLAIN,32),new Font("Arial",Font.BOLD,48),
-				Color.WHITE,Color.YELLOW);
-		options[2] = new Button("Exit",200+2*80,
-				new Font("Arial",Font.PLAIN,32),new Font("Arial",Font.BOLD,48),
-				Color.WHITE,Color.YELLOW);
-	}
+	
 	
 	public void render(Graphics g){
 		g.setColor(Color.DARK_GRAY);
@@ -42,10 +33,10 @@ public class Menu {
 		}
 	}
 	
-	public void select(){
+	public void select(ManagerState sm){
 		switch(currentSelection){
 		case 0:
-			System.out.println("Play");
+			sm.setState("Level1");
 			break;
 		case 1:
 			System.out.println("Options");
@@ -56,8 +47,29 @@ public class Menu {
 			break;
 		}
 	}
-	
-	public void tick(){
+
+	@Override
+	public void init() {
+		options = new Button[3];
+		options[0] = new Button("Play",	200+0*80,
+				new Font("Arial",Font.PLAIN,32),new Font("Arial",Font.BOLD,48),
+				Color.WHITE,Color.YELLOW);
+		options[1] = new Button("Options",200+1*80,
+				new Font("Arial",Font.PLAIN,32),new Font("Arial",Font.BOLD,48),
+				Color.WHITE,Color.YELLOW);
+		options[2] = new Button("Exit",200+2*80,
+				new Font("Arial",Font.PLAIN,32),new Font("Arial",Font.BOLD,48),
+				Color.WHITE,Color.YELLOW);
+	}
+
+	@Override
+	public void enter() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void tick(ManagerState managerState) {
 		boolean clicked=false;
 		for(int i =0; i<options.length; i++){
 			if (options[i].intersects(new Rectangle(MouseInput.getX(),MouseInput.getY(),1,1))){
@@ -65,6 +77,19 @@ public class Menu {
 				clicked = MouseInput.wasPressed(MouseEvent.BUTTON1);
 			}
 		}
-		if (clicked) select();
+		if (clicked) select(managerState);
+		
+	}
+
+	@Override
+	public void exit() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getName() {
+		// TODO Auto-generated method stub
+		return "Menu";
 	}
 }
